@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace命名空间，作用就是对sql进行分类化管理，理解sql隔离 注意：使用mapper代理方法开发，namespace有特殊重要的作用，namespace等于mapper接口地址 -->
+<mapper namespace="com.imgyf.mapper.CartItemMapper">
+
+	<select id="queryById" parameterType="int" resultType="cartItem">
+		select *
+		from cartItem where id=#{value}
+	</select>
+	<select id="queryByCartId" parameterType="int" resultType="cartItem">
+		select *
+		from CartItem where cartId=#{value}
+	</select>
+
+	<update id="update" parameterType="cartItem">
+		update cartItem set
+		cartId=#{cartId},name=#{name},price=#{price},num=#{num},total=#{total},img=#{img}
+		where id=#{id}
+	</update>
+
+	<insert id="add" parameterType="cartItem">
+		<selectKey keyProperty="id" order="BEFORE" resultType="int">
+			select cartItemId.nextval from dual
+		</selectKey>
+		insert into cartItem
+		values(#{id},#{cartId},#{name},#{price},#{num},#{img},#{total})
+	</insert>
+
+	<delete id="delete" parameterType="int">
+		delete from cartItem where
+		id=#{value}
+	</delete>
+	
+	<delete id="deleteByCartId" parameterType="int">
+		delete from cartItem
+		where
+		cartId=#{value}
+	</delete>
+</mapper>
+
+

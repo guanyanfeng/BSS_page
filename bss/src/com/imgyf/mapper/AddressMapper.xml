@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace命名空间，作用就是对sql进行分类化管理，理解sql隔离 注意：使用mapper代理方法开发，namespace有特殊重要的作用，namespace等于mapper接口地址 -->
+<mapper namespace="com.imgyf.mapper.AddressMapper">
+
+	<select id="queryById" parameterType="int" resultType="address">
+		select *
+		from address where id=#{value}
+	</select>
+
+	<select id="queryByUserId" parameterType="int" resultType="address">
+		select *
+		from address where userId =#{value}
+	</select>
+	<update id="update" parameterType="address">
+		update book set
+		userId=#{userId},name=#{name},phone=#{phone},site=#{site} where
+		id=#{id}
+	</update>
+
+	<insert id="add" parameterType="address">
+		<selectKey keyProperty="id" order="BEFORE" resultType="int">
+			select addressId.nextval from dual
+		</selectKey>
+		insert into address
+		values(#{id},#{userId},#{name},#{phone},#{site})
+	</insert>
+
+	<delete id="delete" parameterType="int">
+		delete from address where
+		id=#{value}
+	</delete>
+	
+	<delete id="deleteByUserId" parameterType="int">
+		delete from address where
+		userId=#{value}
+	</delete>
+
+</mapper>
+
+

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace命名空间，作用就是对sql进行分类化管理，理解sql隔离 注意：使用mapper代理方法开发，namespace有特殊重要的作用，namespace等于mapper接口地址 -->
+<mapper namespace="com.imgyf.mapper.BookMapper">
+
+	<select id="queryAll"  resultType="book">
+		select * from book 
+	</select>
+
+	<select id="queryByName" parameterType="java.lang.String"
+		resultType="book">
+		select *
+		from book where name =#{value}
+	</select>
+	<select id="queryById" parameterType="int"
+		resultType="book">
+		select *
+		from book where id =#{value}
+	</select>
+	<select id="queryLikeName" parameterType="java.lang.String"
+		resultType="book">
+		select *
+		from book where name like '%${value}%'
+	</select>
+
+	<update id="update" parameterType="book">
+		update book set
+		name=#{name},price=#{price},storage=#{storage},describe=#{describe} ,img=#{img}where id=#{id}
+	</update>
+
+	<insert id="add" parameterType="book">
+		<selectKey keyProperty="id" order="BEFORE" resultType="int">
+			select bookid.nextval from dual
+		</selectKey>
+
+		insert into book
+		values(#{id},#{name},#{price},#{storage},#{describe},#{img})
+	</insert>
+
+	<delete id="delete" parameterType="book">
+		delete from book where
+		id=#{value}
+	</delete>
+
+</mapper>
+
+

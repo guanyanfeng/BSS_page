@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace命名空间，作用就是对sql进行分类化管理，理解sql隔离 注意：使用mapper代理方法开发，namespace有特殊重要的作用，namespace等于mapper接口地址 -->
+<mapper namespace="com.imgyf.mapper.OrderItemMapper">
+
+	<select id="queryById" parameterType="int" resultType="orderItem">
+		select *
+		from orderItem where id=#{value}
+	</select>
+	<select id="queryByOrderId" parameterType="int" resultType="orderItem">
+		select *
+		from OrderItem where orderId=#{value}
+	</select>
+
+	<update id="update" parameterType="orderItem">
+		update orderItem set
+		orderId=#{orderId},name=#{name},price=#{price},num=#{num},total=#{total}
+		where id=#{id}
+	</update>
+
+	<insert id="add" parameterType="orderItem">
+		<selectKey keyProperty="id" order="BEFORE" resultType="int">
+			select orderItemId.nextval from dual
+		</selectKey>
+		insert into orderItem
+		values(#{id},#{orderId},#{name},#{price},#{num},#{total})
+	</insert>
+
+	<delete id="delete" parameterType="int">
+		delete from orderItem where
+		id=#{value}
+	</delete>
+	
+	<delete id="deleteByOrderId" parameterType="int">
+		delete from orderItem
+		where
+		orderId=#{value}
+	</delete>
+</mapper>
+
+

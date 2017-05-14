@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.imgyf.mapper.ShoppingCartMapper">
+	<resultMap type="com.imgyf.entity.ShoppingCart" id="queryResultMap">
+		<id column="id" property="id" />
+		<result column="userid" property="userId" />
+		<result column="total" property="total" />
+
+		<collection property="cartItems" ofType="com.imgyf.entity.CartItem">
+			<id column="cId" property="id" />
+			<result column="cartId" property="cartId" />
+			<result column="name" property="name" />
+			<result column="price" property="price" />
+			<result column="num" property="num" />
+			<result column="img" property="img" />
+			<result column="itemTotal" property="total" />
+		</collection>
+	</resultMap>
+
+
+	<select id="queryByUserId" parameterType="int" resultType="shoppingCart">
+		select *
+		from shoppingCart  where userId=#{value}
+	</select>
+	
+	<select id="queryId" parameterType="int" resultType="shoppingCart">
+		select *
+		from shoppingCart  where Id=#{value}
+	</select>
+
+	<update id="update" parameterType="shoppingCart">
+		update shoppingCart set
+		total=#{total}
+	</update>
+
+	<insert id="add" parameterType="shoppingCart">
+		<selectKey keyProperty="id" order="BEFORE" resultType="int">
+			select cartId.nextval from dual
+		</selectKey>
+		insert into shoppingCart values(#{id},#{userId},#{total})
+	</insert>
+
+	<delete id="delete" parameterType="int">
+		delete from shoppingCart where
+		userId=#{value}
+	</delete>
+
+</mapper>
+
+

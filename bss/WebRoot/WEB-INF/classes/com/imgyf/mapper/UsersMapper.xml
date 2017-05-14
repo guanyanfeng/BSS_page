@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace命名空间，作用就是对sql进行分类化管理，理解sql隔离 注意：使用mapper代理方法开发，namespace有特殊重要的作用，namespace等于mapper接口地址 -->
+<mapper namespace="com.imgyf.mapper.UsersMapper">
+
+	<select id="queryById" parameterType="int" resultType="users">
+		select *
+		from users where id=#{value}
+	</select>
+
+	<select id="queryByName" parameterType="java.lang.String"
+		resultType="users">
+		select *
+		from users where name =#{value}
+	</select>
+
+	<update id="update" parameterType="users">
+		update users set
+		name=#{name},password=#{password},account=#{account},age=#{age},birthday=#{birthday},
+		gender=#{gender},email=#{email} where id=#{id}
+	</update>
+	
+	<insert id="add" parameterType="users">
+		<selectKey keyProperty="id" order="BEFORE" resultType="int">
+			select usersid.nextval from dual
+		</selectKey>
+
+		insert into users
+		values(#{id},#{name},#{password},#{account},#{age},#{birthday},#{gender},#{email})
+	</insert>
+
+	<delete id="delete" parameterType="int">
+		delete from users where
+		id=#{value}
+	</delete>
+
+</mapper>
+
+
