@@ -108,4 +108,9 @@ public class OrdersServiceImpl implements OrdersService {
 
 	}
 
+	@Override
+	public List<Orders> lookAll() {
+		return ordersMapper.queryAll();
+	}
+
 }

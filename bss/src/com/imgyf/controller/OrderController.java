@@ -51,5 +51,18 @@ public class OrderController {
 
 		return "redirect:/page/order.jsp";
 	}
+	@RequestMapping("lookAll")
+	public String lookAll(HttpServletRequest request, HttpServletResponse resp) {
+		HttpSession session = request.getSession();
 
+		try {
+			List<Orders> orders = orderService.lookAll();
+			session.setAttribute("orders", orders);
+		} catch (Exception e) {
+			session.setAttribute("exception", e.getMessage());
+			return "redirect:/admin/error.jsp";
+		}
+
+		return "redirect:/admin/listOrder.jsp";
+	}
 }

@@ -40,7 +40,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		orders.id=orderItem.orderid
 		where orders.Id=#{value}
 	</select>
-
+<select id="queryAll" resultType="orders">
+		select * from orders
+		
+	</select>
 	<update id="update" parameterType="orders">
 		update orders set
 		userId=#{userId},total=#{total},status=#{status},

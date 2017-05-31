@@ -31,13 +31,26 @@ public class BookController {
 		 
 		return "redirect:/page/index.jsp";
 	} 
-
+	@RequestMapping("/lookBook")
+	public String lookBook(HttpServletRequest request,HttpServletResponse resp) {
+		HttpSession session = request.getSession();
+		try {
+			List<Book> books = bookService.lookAll();
+			session.setAttribute("books",books);
+		} catch (Exception e) {
+			session.setAttribute("exception", e.getMessage());
+			return "redirect:/admin/error.jsp";
+		}
+		 
+		return "redirect:/admin/listBook.jsp";
+	} 
 	@RequestMapping("/query")
 	public String queryLikeName(HttpServletRequest request, Model model,
 			HttpServletResponse resp) {
 		HttpSession session = request.getSession();
 		try {
 			String name=request.getParameter("likeName");
+			
 			List<Book> likeBooks = bookService.lookLikeName(name);
 			session.setAttribute("likeBooks",likeBooks);
 		} catch (Exception e) {
@@ -46,6 +59,21 @@ public class BookController {
 		}
 		 
 		return "redirect:/page/queryproducts.jsp";
+	}
+	@RequestMapping("/queryName")
+	public String queryByName(HttpServletRequest request, Model model,
+			HttpServletResponse resp) {
+		HttpSession session = request.getSession();
+		try {
+			String name=request.getParameter("name");
+			Book book = bookService.lookByName(name);
+			session.setAttribute("book",book);
+		} catch (Exception e) {
+			session.setAttribute("exception", e.getMessage());
+			return "redirect:/admin/error.jsp";
+		}
+		 
+		return "redirect:/admin/modifyBook.jsp";
 	}
 	@RequestMapping("/book")
 	public String queryById(HttpServletRequest request, Model model,
@@ -61,5 +89,24 @@ public class BookController {
 		}
 		 
 		return "redirect:/page/productdetail.jsp";
+	}
+	@RequestMapping("/modifyBook")
+	public String modify(HttpServletRequest request, Model model,
+			HttpServletResponse resp) {
+		HttpSession session = request.getSession();
+		try {
+			int id=Integer.valueOf(request.getParameter("id"));
+			Book book = bookService.lookById(id);
+			book.setDescribe(request.getParameter("describe"));
+			book.setName(request.getParameter("name"));
+			book.setPrice(Double.valueOf(request.getParameter("price")));
+			book.setStorage(Integer.valueOf(request.getParameter("storage")));
+			bookService.modify(book);
+		} catch (Exception e) {
+			session.setAttribute("exception", e.getMessage());
+			return "redirect:/admin/error.jsp";
+		}
+		 
+		return "redirect:/admin/modifyBook.jsp";
 	}
 }

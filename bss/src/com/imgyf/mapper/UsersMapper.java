@@ -1,5 +1,7 @@
 package com.imgyf.mapper;
 
+import java.util.List;
+
 import com.imgyf.entity.Users;
 
 /**
@@ -18,6 +20,8 @@ public interface UsersMapper {
 	 * @throws Exception
 	 */
 	public Users queryById(int id) throws Exception;
+
+	public List<Users> queryAll() throws Exception;
 
 	/**
 	 * 根据用户名查询用户

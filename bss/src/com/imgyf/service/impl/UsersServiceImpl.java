@@ -1,5 +1,7 @@
 package com.imgyf.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,6 +65,12 @@ public class UsersServiceImpl implements UsersService {
 	}
 	public Users look(int userId)throws Exception{
 		return usersMapper.queryById(userId);
+	}
+
+	@Override
+	public List<Users> lookAll() throws Exception {
+		// TODO Auto-generated method stub
+		return usersMapper.queryAll();
 	}
 
 }

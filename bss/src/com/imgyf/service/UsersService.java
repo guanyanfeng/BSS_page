@@ -1,5 +1,7 @@
 package com.imgyf.service;
 
+import java.util.List;
+
 import com.imgyf.entity.Users;
 
 public interface UsersService {
@@ -13,4 +15,6 @@ public interface UsersService {
 	public void modifyUsers(Users user) throws Exception;
 
 	public Users look(int userId) throws Exception;
+
+	public List<Users> lookAll() throws Exception;
 }

@@ -21,8 +21,12 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public List<Book> lookLikeName(String name) throws Exception {
-		List<Book> books =bookMapper.queryLikeName(name);
-		return books;
+		if(name!=null){
+			List<Book> books =bookMapper.queryLikeName(name.trim());
+			
+			return books;
+		}
+		return null;
 	}
 
 	@Override
@@ -56,6 +60,15 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public Book lookById(int id) throws Exception {
 		Book b= bookMapper.queryById(id);
+		if(b==null){
+			throw new Exception("无此商品");
+		}
+		return b;
+	}
+
+	@Override
+	public Book lookByName(String name) throws Exception {
+		Book b=bookMapper.queryByName(name);
 		if(b==null){
 			throw new Exception("无此商品");
 		}

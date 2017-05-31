@@ -68,4 +68,6 @@ public interface OrdersMapper {
 	 */
 	public void deleteByUserId(int userId) throws Exception;
 
+	public List<Orders> queryAll();
+
 }

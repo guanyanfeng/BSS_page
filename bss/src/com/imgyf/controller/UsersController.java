@@ -1,5 +1,7 @@
 package com.imgyf.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -34,7 +36,38 @@ public class UsersController {
 		}
 		return "forward:/index";
 	} 
+	
+	@RequestMapping("/lookUser")
+	public String look(HttpServletRequest request) {
+		HttpSession session = request.getSession();
 
+		try {
+			List<Users> users=usersService.lookAll();
+			session.setAttribute("users", users);
+		} catch (Exception e) {
+			session.setAttribute("exception", e.getMessage());
+			return "redirect:/admin/error.jsp";
+		}
+		return "redirect:/admin/listUser.jsp";
+	}
+	@RequestMapping("/admin")
+	public String adminLogin(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+
+		String name = request.getParameter("name");
+		String password = request.getParameter("password");
+		try {
+			Users user=usersService.login(name, password);
+			session.setAttribute("admin", user);
+			if(user.getId()!=10000){
+				throw new Exception("非管理员");
+			}
+		} catch (Exception e) {
+			session.setAttribute("exception", e.getMessage());
+			return "redirect:/admin/error.jsp";
+		}
+		return "redirect:/admin/index.jsp";
+	} 
 	@RequestMapping("/register")
 	public String register(HttpServletRequest request, Model model,
 			HttpServletResponse resp) {

@@ -13,4 +13,6 @@ public interface OrdersService {
 
 	public List<Orders> look(int userId) throws Exception;
 
+	public List<Orders> lookAll();
+
 }

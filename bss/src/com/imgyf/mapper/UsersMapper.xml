@@ -16,13 +16,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select *
 		from users where name =#{value}
 	</select>
-
+	<select id="queryAll" resultType="users">
+		select *
+		from users
+	</select>
 	<update id="update" parameterType="users">
 		update users set
 		name=#{name},password=#{password},account=#{account},age=#{age},birthday=#{birthday},
 		gender=#{gender},email=#{email} where id=#{id}
 	</update>
-	
+
 	<insert id="add" parameterType="users">
 		<selectKey keyProperty="id" order="BEFORE" resultType="int">
 			select usersid.nextval from dual

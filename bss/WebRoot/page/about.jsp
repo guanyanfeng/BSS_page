@@ -73,15 +73,17 @@
 								<li><a href="#">小说</a></li>
 
 							</ul></li>
+							<li><a href="${pageContext.request.contextPath}/lookOrder?userId=${sessionScope.user.id}">订单</a></li>
+						
+						<li><a href="faqs.jsp">帮助中心</a></li>
+						
+						<li><a href="contact.jsp">联系我们</a></li>
 						<li><a href="about.jsp">关于我们</a>
 							<ul>
 								<li><a href="#">公司简介</a></li>
 								<li><a href="#">团队介绍</a></li>
 
 							</ul></li>
-						<li><a href="faqs.jsp">帮助中心</a></li>
-						<li><a href="${pageContext.request.contextPath}/lookOrder?userId=${sessionScope.user.id}">订单</a></li>
-						<li><a href="contact.jsp">联系我们</a></li>
 					</ul>
 					<br style="clear: left" />
 				</div>

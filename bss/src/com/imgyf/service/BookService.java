@@ -16,4 +16,5 @@ public interface BookService {
 	public void modify(Book book) throws Exception;
 
 	public Book lookById(int id) throws Exception;
+	public Book lookByName(String name) throws Exception;
 }
